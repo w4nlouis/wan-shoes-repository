@@ -35,13 +35,12 @@ $products = mysqli_query($conn, "SELECT * FROM products WHERE stock_quantity > 0
     <title>Record Sale - Wan Shoes</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-size: 14px; font-weight: 500;">🚪 Logout</a>
+            <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
         </div>
         
         <h1>Record Sale</h1>

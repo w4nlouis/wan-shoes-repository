@@ -38,17 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/script.js"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .logo-gold {
-            color: #d4af37;
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: -0.5px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">

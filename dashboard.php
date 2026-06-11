@@ -17,11 +17,11 @@ $name = $_SESSION['name'];
 </head>
 <body>
     <div class="dashboard">
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-            <a href="logout.php" style="background: #dc3545; color: white; padding: 8px 20px; border-radius: 30px; text-decoration: none; font-size: 14px;">🚪 Logout</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div class="logo">WAN SHOES</div>
+            <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
         </div>
         
-        <div class="logo">WAN SHOES</div>
         <h1>Employee Dashboard</h1>
         <div class="subtitle">Welcome, <?php echo ucfirst($name); ?> (<?php echo ucfirst($role); ?>)</div>
         
