@@ -4,15 +4,18 @@ if(!isset($_SESSION['role'])) {
     header("Location: login.php");
     exit();
 }
+
+// Set default name if not set
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Employee';
 $role = $_SESSION['role'];
-$name = $_SESSION['name'];
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Dashboard</title>
+    <title>Employee Dashboard - Wan Shoes</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard">

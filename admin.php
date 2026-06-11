@@ -4,6 +4,10 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     header("Location: login.php");
     exit();
 }
+
+// Set default name if not set
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Admin';
+
 $conn = mysqli_connect("localhost", "root", "", "wan_shoes_db");
 
 $stock_query = mysqli_query($conn, "SELECT SUM(stock_quantity * price) as total FROM products");
@@ -22,8 +26,9 @@ $total_employees = $employee_count_row['count'] ?? 0;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Wan Shoes</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard">
@@ -33,7 +38,7 @@ $total_employees = $employee_count_row['count'] ?? 0;
         </div>
         
         <h1>Admin Dashboard</h1>
-        <div class="subtitle">Inventory Management System</div>
+        <div class="subtitle">Welcome, <?php echo ucfirst($name); ?>!</div>
         
         <div class="stats-grid">
             <div class="stat-card">

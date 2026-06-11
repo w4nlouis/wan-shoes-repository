@@ -318,3 +318,27 @@ td a:hover {
     background: #f8f8f8;
     z-index: 10;
 }
+/* Password toggle container */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    background: none;
+    border: none;
+    padding: 0;
+    width: auto;
+}

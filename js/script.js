@@ -72,3 +72,47 @@ function confirmDelete(item) {
 document.addEventListener('DOMContentLoaded', function() {
     showPasswordStrength();
 });
+function fireEmployee(name) {
+    return confirm("🔥🔥🔥 WARNING! 🔥🔥🔥\n\nYou are about to fire " + name + " from Wan Shoes.\n\nThis action cannot be undone.\n\nClick OK to proceed with termination.");
+}
+// Toggle password visibility
+function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🙈";
+    } else {
+        input.type = "password";
+        icon.textContent = "👁️";
+    }
+}
+// Check password strength for login page
+function checkLoginPasswordStrength() {
+    const password = document.getElementById('password').value;
+    const strengthDiv = document.getElementById('login-password-strength');
+    
+    if (!strengthDiv) return;
+    
+    if (password.length === 0) {
+        strengthDiv.innerHTML = '';
+        return;
+    }
+    
+    let strength = '';
+    let color = '';
+    
+    if (password.length < 4) {
+        strength = 'Weak';
+        color = 'red';
+    } else if (password.length < 8) {
+        strength = 'Medium';
+        color = 'orange';
+    } else {
+        strength = 'Strong';
+        color = 'green';
+    }
+    
+    strengthDiv.innerHTML = 'Password strength: <span style="color:' + color + '; font-weight: bold;">' + strength + '</span>';
+}
