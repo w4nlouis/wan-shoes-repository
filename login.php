@@ -9,9 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $result = mysqli_query($conn, "SELECT * FROM admins WHERE email='$email' AND password='$password'");
     if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['admin_id'];
-        $_SESSION['name'] = $row['name'];
         $_SESSION['role'] = 'admin';
         header("Location: admin.php");
         exit();
@@ -20,8 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, "SELECT * FROM employees WHERE email='$email' AND password='$password'");
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['employee_id'];
-        $_SESSION['name'] = $row['name'];
         $_SESSION['role'] = $row['role'];
         header("Location: dashboard.php");
         exit();
@@ -34,26 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wan Shoes - Login</title>
+    <title>Wan Shoes Login</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/script.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="logo-gold">WAN</div>
-        <h2>Welcome Back</h2>
-        <p>Sign in to access inventory</p>
-        
+        <h2>Wan Shoes Inventory</h2>
         <?php if(isset($error)) echo "<div class='error'>$error</div>"; ?>
-        
         <form method="POST" onsubmit="return validateLogin()">
-            <input type="email" id="email" name="email" placeholder="Email address" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
-            <button type="submit">Sign In</button>
+            <button type="submit">Login</button>
         </form>
-        
-        <p style="margin-top: 20px; font-size: 11px; color: #999;">Demo: admin@wanshoes.com / admin123</p>
+        <p style="margin-top: 15px; font-size: 12px;">admin@wanshoes.com / admin123</p>
     </div>
 </body>
 </html>
