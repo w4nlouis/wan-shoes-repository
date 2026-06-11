@@ -38,3 +38,5 @@ Internal inventory system for Wan Shoes shop. Admin and employees only (no custo
 ## Author
 Louis Wanyoike
 BSCCS/2024/52266
+## Repository
+https://github.com/w4nlouis/wan-shoes-repositor
