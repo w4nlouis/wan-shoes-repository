@@ -7,34 +7,35 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
-// Get sales with LEFT JOIN
-$sales = mysqli_query($conn, "SELECT sales.*, 
-                              COALESCE(products.name, 'DELETED PRODUCT') as product_name, 
-                              COALESCE(products.price, 0) as price, 
-                              employees.name as employee_name 
-                              FROM sales 
-                              LEFT JOIN products ON sales.product_id = products.product_id 
-                              JOIN employees ON sales.employee_id = employees.employee_id 
-                              ORDER BY sale_date DESC");
+// Get all orders with customer names and item details
+$sales = mysqli_query($conn, "SELECT orders.order_id, 
+                                     orders.order_date, 
+                                     orders.total_amount, 
+                                     orders.status,
+                                     customers.fullname as customer_name,
+                                     GROUP_CONCAT(CONCAT(products.name, ' x', order_items.quantity) SEPARATOR ', ') as items
+                              FROM orders 
+                              JOIN customers ON orders.customer_id = customers.customer_id
+                              JOIN order_items ON orders.order_id = order_items.order_id
+                              JOIN products ON order_items.product_id = products.product_id
+                              GROUP BY orders.order_id
+                              ORDER BY orders.order_date DESC");
 
 // Calculate total revenue
-$revenue_query = mysqli_query($conn, "SELECT SUM(sales.quantity * COALESCE(products.price, 0)) as total 
-                                      FROM sales 
-                                      LEFT JOIN products ON sales.product_id = products.product_id");
+$revenue_query = mysqli_query($conn, "SELECT SUM(total_amount) as total FROM orders WHERE status != 'cancelled'");
 $revenue_row = mysqli_fetch_assoc($revenue_query);
 $total_revenue = $revenue_row['total'] ?? 0;
 
-// Count total sales
-$count_query = mysqli_query($conn, "SELECT COUNT(*) as count FROM sales");
+// Count total orders
+$count_query = mysqli_query($conn, "SELECT COUNT(*) as count FROM orders");
 $count_row = mysqli_fetch_assoc($count_query);
-$total_sales = $count_row['count'] ?? 0;
+$total_orders = $count_row['count'] ?? 0;
 
-// Weekly sales for chart
-$weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * COALESCE(products.price, 0)) as total 
-                               FROM sales 
-                               LEFT JOIN products ON sales.product_id = products.product_id 
-                               WHERE sale_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) 
-                               GROUP BY DATE(sale_date)
+// Weekly sales chart
+$weekly = mysqli_query($conn, "SELECT DATE(order_date) as date, SUM(total_amount) as total 
+                               FROM orders 
+                               WHERE order_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) 
+                               GROUP BY DATE(order_date)
                                ORDER BY date ASC");
 ?>
 
@@ -83,10 +84,6 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
         .summary-card .value.gold {
             color: #d4af37;
         }
-        .deleted-product {
-            color: #dc3545;
-            font-style: italic;
-        }
         .chart-container {
             background: #f8f8f8;
             padding: 20px;
@@ -117,6 +114,16 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
             color: #1e3a5f;
             margin-top: 5px;
         }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .status-pending { background: #fce4ec; }
+        .status-processing { background: #fff3cd; }
+        .status-shipped { background: #e3f2fd; }
+        .status-delivered { background: #e8f5e9; }
+        .status-cancelled { background: #f5f5f5; color: #999; }
     </style>
 </head>
 <body>
@@ -127,7 +134,7 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
         </div>
         
         <h1>Sales Reports</h1>
-        <div class="subtitle">View all sales transactions and revenue</div>
+        <div class="subtitle">View all orders and revenue</div>
         
         <!-- Sales Chart -->
         <div class="chart-container">
@@ -149,8 +156,8 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
         <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="summary-card">
-                <h3>📊 TOTAL SALES</h3>
-                <div class="value"><?php echo $total_sales; ?></div>
+                <h3>📊 TOTAL ORDERS</h3>
+                <div class="value"><?php echo $total_orders; ?></div>
             </div>
             <div class="summary-card">
                 <h3>💰 TOTAL REVENUE</h3>
@@ -158,18 +165,17 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
             </div>
         </div>
         
-        <!-- Sales Table -->
-        <h3>Sales Transactions</h3>
+        <!-- Orders Table -->
+        <h3>Order Transactions</h3>
         <div class="sales-table-container">
             <table border="1" cellpadding="10">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Product</th>
-                        <th>Price (KSH)</th>
-                        <th>Clerk</th>
-                        <th>Quantity</th>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Items</th>
                         <th>Total (KSH)</th>
+                        <th>Status</th>
                         <th>Date</th>
                     </tr>
                 </thead>
@@ -178,32 +184,26 @@ $weekly = mysqli_query($conn, "SELECT DATE(sale_date) as date, SUM(quantity * CO
                     $displayed = 0;
                     while($row = mysqli_fetch_assoc($sales)): 
                         $displayed++;
-                        $total = $row['quantity'] * $row['price'];
-                        $is_deleted = ($row['product_name'] == 'DELETED PRODUCT');
+                        $status_class = 'status-' . $row['status'];
                     ?>
                         <tr>
-                            <td><?php echo $row['sale_id']; ?></td>
-                            <td><?php if($is_deleted): ?>
-                                <span class="deleted-product"><?php echo $row['product_name']; ?> (ID: <?php echo $row['product_id']; ?>)</span>
-                            <?php else: ?>
-                                <?php echo $row['product_name']; ?>
-                            <?php endif; ?></td>
-                            <td><?php echo number_format($row['price'], 2); ?></td>
-                            <td><?php echo $row['employee_name']; ?></td>
-                            <td><?php echo $row['quantity']; ?></td>
-                            <td><strong><?php echo number_format($total, 2); ?></strong></td>
-                            <td><?php echo $row['sale_date']; ?></td>
+                            <td><?php echo $row['order_id']; ?></td>
+                            <td><?php echo $row['customer_name']; ?></td>
+                            <td><?php echo $row['items']; ?></td>
+                            <td><strong>KSH <?php echo number_format($row['total_amount'], 2); ?></strong></td>
+                            <td><span class="status-badge <?php echo $status_class; ?>"><?php echo ucfirst($row['status']); ?></span></td>
+                            <td><?php echo $row['order_date']; ?></td>
                         </tr>
                     <?php endwhile; ?>
                     
                     <?php if($displayed == 0): ?>
                         <tr>
-                            <td colspan="7" style="text-align: center;">No sales recorded yet</td>
+                            <td colspan="6" style="text-align: center;">No orders recorded yet</td>
                         </tr>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7" style="text-align: center; background: #f8f8f8;">
-                                <strong>Showing <?php echo $displayed; ?> of <?php echo $total_sales; ?> total sales</strong>
+                            <td colspan="6" style="text-align: center; background: #f8f8f8;">
+                                <strong>Showing <?php echo $displayed; ?> of <?php echo $total_orders; ?> total orders</strong>
                             </td>
                         </tr>
                     <?php endif; ?>
