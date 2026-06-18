@@ -42,7 +42,16 @@ $items = mysqli_query($conn, "SELECT order_items.*, products.name, products.bran
         <div class="subtitle">Placed on <?php echo $order_data['order_date']; ?></div>
 
         <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-            <p><strong>Status:</strong> <?php echo ucfirst($order_data['status']); ?></p>
+            <p><strong>Status:</strong> 
+                <span style="background: <?php 
+                    echo $order_data['status'] == 'delivered' ? '#e8f5e9' : 
+                        ($order_data['status'] == 'shipped' ? '#e3f2fd' : 
+                        ($order_data['status'] == 'processing' ? '#fff3cd' : 
+                        ($order_data['status'] == 'cancelled' ? '#fce4ec' : '#fce4ec'))); 
+                ?>; padding: 5px 10px; border-radius: 20px;">
+                    <?php echo ucfirst($order_data['status']); ?>
+                </span>
+            </p>
             <p><strong>Total:</strong> KSH <?php echo number_format($order_data['total_amount'], 2); ?></p>
         </div>
 
@@ -66,8 +75,16 @@ $items = mysqli_query($conn, "SELECT order_items.*, products.name, products.bran
             <?php endwhile; ?>
         </table>
 
-        <br>
-        <a href="orders.php" class="back-link">← Back to Orders</a>
+        <div style="margin-top: 20px;">
+            <?php if($order_data['status'] == 'pending'): ?>
+                <a href="cancel_order.php?id=<?php echo $order_id; ?>" 
+                   onclick="return confirm('Are you sure you want to cancel order #<?php echo $order_id; ?>?')"
+                   style="background: #dc3545; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-right: 10px;">
+                   ❌ Cancel Order
+                </a>
+            <?php endif; ?>
+            <a href="orders.php" class="back-link">← Back to Orders</a>
+        </div>
     </div>
 </body>
 </html>
