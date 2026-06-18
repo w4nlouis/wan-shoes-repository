@@ -1,32 +1,45 @@
 <?php
 session_start();
-
-$conn = mysqli_connect("localhost", "root", "", "wan_shoes_db");
+include 'includes/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
     
-    // Check admin
-    $result = mysqli_query($conn, "SELECT * FROM admins WHERE email='$email' AND password='$password'");
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['admin_id'];
-        $_SESSION['name'] = $row['name'];
-        $_SESSION['role'] = 'admin';
-        header("Location: admin.php");
-        exit();
+    // 1. CHECK ADMIN
+    $result = mysqli_query($conn, "SELECT * FROM admins WHERE email='$email'");
+    if ($row = mysqli_fetch_assoc($result)) {
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['admin_id'];
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['role'] = 'admin';
+            header("Location: admin/dashboard.php");
+            exit();
+        }
     }
     
-    // Check employee
-    $result = mysqli_query($conn, "SELECT * FROM employees WHERE email='$email' AND password='$password'");
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['employee_id'];
-        $_SESSION['name'] = $row['name'];
-        $_SESSION['role'] = $row['role'];
-        header("Location: dashboard.php");
-        exit();
+    // 2. CHECK MANAGER (NO role check — just employees table)
+    $result = mysqli_query($conn, "SELECT * FROM employees WHERE email='$email'");
+    if ($row = mysqli_fetch_assoc($result)) {
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['employee_id'];
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['role'] = 'manager';
+            header("Location: manager/dashboard.php");
+            exit();
+        }
+    }
+    
+    // 3. CHECK CUSTOMER
+    $result = mysqli_query($conn, "SELECT * FROM customers WHERE email='$email'");
+    if ($row = mysqli_fetch_assoc($result)) {
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['customer_id'] = $row['customer_id'];
+            $_SESSION['customer_name'] = $row['fullname'];
+            $_SESSION['role'] = 'customer';
+            header("Location: customer/dashboard.php");
+            exit();
+        }
     }
     
     $error = "Invalid login";
@@ -45,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="logo-gold">WAN</div>
         <h2>Welcome Back</h2>
-        <p>Sign in to access inventory</p>
+        <p>Sign in to your account</p>
         
         <?php if(isset($error)) echo "<div class='error'>$error</div>"; ?>
         
@@ -65,7 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit">Sign In</button>
         </form>
         
-        <p style="margin-top: 20px; font-size: 11px; color: #999;">Demo: admin@wanshoes.com / admin123</p>
+        <p style="margin-top: 20px; font-size: 11px; color: #999;">
+            <strong>Demo Accounts:</strong><br>
+            Admin: admin@wanshoes.com / admin123<br>
+            Manager: manager@wanshoes.com / manager123<br>
+            <a href="customer/register.php">Customer? Register here</a>
+        </p>
     </div>
 </body>
 </html>
