@@ -30,7 +30,7 @@ $orders = mysqli_query($conn, "SELECT * FROM orders WHERE customer_id = $custome
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+            <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
         </div>
 
         <h1>My Orders</h1>
@@ -79,11 +79,11 @@ $orders = mysqli_query($conn, "SELECT * FROM orders WHERE customer_id = $custome
                             </td>
                             <td>
                                 <a href="order_details.php?id=<?php echo $order['order_id']; ?>" 
-                                   style="color: #1e3a5f; text-decoration: none;">📋 View</a>
+                                   style="color: #1e3a5f; text-decoration: none;"> View</a>
                                 <?php if($order['status'] == 'pending'): ?>
                                     | <a href="cancel_order.php?id=<?php echo $order['order_id']; ?>" 
                                          onclick="return confirm('Are you sure you want to cancel order #<?php echo $order['order_id']; ?>?')"
-                                         style="color: #dc3545; text-decoration: none;">❌ Cancel</a>
+                                         style="color: #dc3545; text-decoration: none;"> Cancel</a>
                                 <?php endif; ?>
                             </td>
                         </tr>

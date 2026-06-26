@@ -58,7 +58,8 @@ if (!empty($_SESSION['cart'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Cart - Wan Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>Shopping Cart - Wan Shoes</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -67,7 +68,7 @@ if (!empty($_SESSION['cart'])) {
             <div class="logo">WAN SHOES</div>
             <div>
                 <span style="margin-right: 20px; color: #666;">Welcome, <?php echo $_SESSION['customer_name']; ?></span>
-                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
             </div>
         </div>
         
@@ -96,7 +97,7 @@ if (!empty($_SESSION['cart'])) {
                             <a href="?remove=<?php echo $item['product_id']; ?>" style="text-decoration: none; color: red;">➖</a>
                         </td>
                         <td>KSH <?php echo number_format($item['subtotal'], 2); ?></td>
-                        <td><a href="?remove=<?php echo $item['product_id']; ?>" style="color: red; text-decoration: none;">🗑️ Remove</a></td>
+                        <td><a href="?remove=<?php echo $item['product_id']; ?>" style="color: red; text-decoration: none;"> Remove</a></td>
                     </tr>
                 <?php endforeach; ?>
                 <tr style="font-weight: bold; font-size: 18px;">
@@ -107,9 +108,9 @@ if (!empty($_SESSION['cart'])) {
             </table>
             
             <div style="display: flex; gap: 15px; margin-top: 20px; justify-content: center;">
-                <a href="checkout.php" style="padding: 12px 30px; background: #2ecc71; color: white; text-decoration: none; border-radius: 30px;">✅ Proceed to Checkout</a>
-                <a href="?clear=1" style="padding: 12px 30px; background: #dc3545; color: white; text-decoration: none; border-radius: 30px;">🗑️ Clear Cart</a>
-                <a href="products.php" style="padding: 12px 30px; background: #000; color: white; text-decoration: none; border-radius: 30px;">👟 Continue Shopping</a>
+                <a href="checkout.php" style="padding: 12px 30px; background: #2ecc71; color: white; text-decoration: none; border-radius: 30px;"> Proceed to Checkout</a>
+                <a href="?clear=1" style="padding: 12px 30px; background: #dc3545; color: white; text-decoration: none; border-radius: 30px;"> Clear Cart</a>
+                <a href="products.php" style="padding: 12px 30px; background: #000; color: white; text-decoration: none; border-radius: 30px;"> Continue Shopping</a>
             </div>
         <?php endif; ?>
         

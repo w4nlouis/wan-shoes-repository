@@ -34,7 +34,7 @@ $orders = mysqli_query($conn, "SELECT orders.*, customers.fullname as customer_n
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
         </div>
         
         <h1>Manage Orders</h1>

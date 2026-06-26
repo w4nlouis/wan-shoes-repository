@@ -46,33 +46,33 @@ $total_orders = $order_count_row['count'] ?? 0;
         
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>📦 PRODUCTS</h3>
+                <h3> PRODUCTS</h3>
                 <div class="value"><?php echo $total_products; ?></div>
                 <div class="label">Total Items</div>
             </div>
             <div class="stat-card">
-                <h3>💰 INVENTORY VALUE</h3>
+                <h3> INVENTORY VALUE</h3>
                 <div class="value">KSH <?php echo number_format($total_stock_value, 2); ?></div>
                 <div class="label">Stock Worth</div>
             </div>
             <div class="stat-card">
-                <h3>👥 STAFF</h3>
+                <h3> STAFF</h3>
                 <div class="value"><?php echo $total_employees; ?></div>
                 <div class="label">Active Employees</div>
             </div>
             <div class="stat-card">
-                <h3>📋 ORDERS</h3>
+                <h3> ORDERS</h3>
                 <div class="value"><?php echo $total_orders; ?></div>
                 <div class="label">Total Orders</div>
             </div>
         </div>
         
         <div class="menu-grid">
-            <a href="products.php" class="menu-btn">📦 Manage Products</a>
-            <a href="employees.php" class="menu-btn">👥 Manage Employees</a>
-            <a href="view_sales.php" class="menu-btn">💰 View Sales</a>
-            <a href="manage_orders.php" class="menu-btn">📋 Manage Orders</a>
-            <a href="view_customers.php" class="menu-btn">👤 View Customers</a>
+            <a href="products.php" class="menu-btn"> Manage Products</a>
+            <a href="employees.php" class="menu-btn"> Manage Employees</a>
+            <a href="view_sales.php" class="menu-btn"> View Sales</a>
+            <a href="manage_orders.php" class="menu-btn"> Manage Orders</a>
+            <a href="view_customers.php" class="menu-btn"> View Customers</a>
         </div>
     </div>
 </body>

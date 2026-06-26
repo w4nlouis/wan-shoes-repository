@@ -39,7 +39,7 @@ $employees = mysqli_query($conn, "SELECT * FROM employees");
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
         </div>
         
         <h1>Manage Managers</h1>
@@ -58,13 +58,13 @@ $employees = mysqli_query($conn, "SELECT * FROM employees");
                 <input type="password" id="emp_password" name="password" placeholder="Password (min 8 chars)" required>
                 <span id="toggleEmpPassword" onclick="togglePassword('emp_password', 'toggleEmpPassword')" 
                       style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 20px;">
-                      👁️
+                      
                 </span>
             </div>
             
             <div id="password-strength" style="margin-bottom: 15px; font-size: 12px;"></div>
             
-            <button type="submit" name="add" style="background: #2ecc71;">💼 Hire Manager</button>
+            <button type="submit" name="add" style="background: #2ecc71;"> Hire Manager</button>
         </form>
         
         <h3>Current Managers</h3>
@@ -82,7 +82,7 @@ $employees = mysqli_query($conn, "SELECT * FROM employees");
                     <a href="?delete=<?php echo $row['employee_id']; ?>" 
                        onclick="return fireEmployee('<?php echo $row['name']; ?>')"
                        style="color: #dc3545; text-decoration: none;">
-                       🔥 Fire
+                        Fire
                     </a>
                 </td>
             </tr>

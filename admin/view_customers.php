@@ -23,7 +23,7 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY created_at DE
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
         </div>
         
         <h1>Registered Customers</h1>
@@ -57,7 +57,7 @@ $customers = mysqli_query($conn, "SELECT * FROM customers ORDER BY created_at DE
                             <td><?php echo $order_count['count']; ?></td>
                             <td>
                                 <a href="view_customer_orders.php?id=<?php echo $customer['customer_id']; ?>" 
-                                   style="color: #1e3a5f; text-decoration: none;">📋 View Orders</a>
+                                   style="color: #1e3a5f; text-decoration: none;"> View Orders</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

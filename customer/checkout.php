@@ -59,7 +59,8 @@ if (isset($_POST['checkout'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Checkout - Wan Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>Checkout - Wan Shoes</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -68,7 +69,7 @@ if (isset($_POST['checkout'])) {
             <div class="logo">WAN SHOES</div>
             <div>
                 <span style="margin-right: 20px; color: #666;">Welcome, <?php echo $_SESSION['customer_name']; ?></span>
-                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
             </div>
         </div>
         

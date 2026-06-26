@@ -43,6 +43,7 @@ $weekly = mysqli_query($conn, "SELECT DATE(order_date) as date, SUM(total_amount
 <html>
 <head>
     <title>View Sales - Wan Shoes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <style>
         .sales-table-container {
@@ -130,7 +131,7 @@ $weekly = mysqli_query($conn, "SELECT DATE(order_date) as date, SUM(total_amount
     <div class="dashboard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo">WAN SHOES</div>
-            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+            <a href="../logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
         </div>
         
         <h1>Sales Reports</h1>
@@ -138,7 +139,7 @@ $weekly = mysqli_query($conn, "SELECT DATE(order_date) as date, SUM(total_amount
         
         <!-- Sales Chart -->
         <div class="chart-container">
-            <h3>📈 Sales Overview (Last 7 Days)</h3>
+            <h3> Sales Overview (Last 7 Days)</h3>
             <?php if (mysqli_num_rows($weekly) > 0): ?>
                 <div class="chart-bar">
                     <?php while($day = mysqli_fetch_assoc($weekly)): ?>
@@ -156,11 +157,11 @@ $weekly = mysqli_query($conn, "SELECT DATE(order_date) as date, SUM(total_amount
         <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="summary-card">
-                <h3>📊 TOTAL ORDERS</h3>
+                <h3> TOTAL ORDERS</h3>
                 <div class="value"><?php echo $total_orders; ?></div>
             </div>
             <div class="summary-card">
-                <h3>💰 TOTAL REVENUE</h3>
+                <h3> TOTAL REVENUE</h3>
                 <div class="value gold">KSH <?php echo number_format($total_revenue, 2); ?></div>
             </div>
         </div>

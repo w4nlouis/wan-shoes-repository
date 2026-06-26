@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" id="email" name="email" placeholder="Email Address" required>
             <div style="position: relative;">
                 <input type="password" id="password" name="password" placeholder="Password" required>
-                <span onclick="togglePassword('password', 'toggleLoginPassword')" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;">👁️</span>
+                <span onclick="togglePassword('password', 'toggleLoginPassword')" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
             </div>
             <div style="text-align: left; margin: 10px 0;">
                 <input type="checkbox" id="remember" name="remember">

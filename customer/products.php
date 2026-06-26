@@ -30,7 +30,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
             <div class="logo">WAN SHOES</div>
             <div>
                 <span style="margin-right: 20px; color: #666;">Welcome, <?php echo $_SESSION['customer_name']; ?></span>
-                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;">🚪 Logout</a>
+                <a href="logout.php" style="background: #dc3545; color: white; padding: 10px 24px; border-radius: 30px; text-decoration: none;"> Logout</a>
             </div>
         </div>
         
@@ -43,7 +43,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                 <input type="text" name="search" placeholder="Search by name or brand..." 
                        value="<?php echo htmlspecialchars($search_term); ?>"
                        style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                <button type="submit" style="padding: 12px 30px; background: #000; color: white; border: none; border-radius: 8px;">🔍 Search</button>
+                <button type="submit" style="padding: 12px 30px; background: #000; color: white; border: none; border-radius: 8px;"> Search</button>
                 <?php if($search_term): ?>
                     <a href="products.php" style="padding: 12px 24px; background: #666; color: white; text-decoration: none; border-radius: 8px;">Clear</a>
                 <?php endif; ?>
@@ -70,12 +70,12 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                         <p style="color: #666;">Size: <?php echo $row['size']; ?></p>
                         <p style="font-size: 24px; font-weight: bold; color: #d4af37; margin: 10px 0;">KSH <?php echo number_format($row['price'], 2); ?></p>
                         <p style="color: <?php echo ($row['stock_quantity'] > 0) ? 'green' : 'red'; ?>;">
-                            <?php echo ($row['stock_quantity'] > 0) ? '✅ In Stock (' . $row['stock_quantity'] . ')' : '❌ Out of Stock'; ?>
+                            <?php echo ($row['stock_quantity'] > 0) ? ' In Stock (' . $row['stock_quantity'] . ')' : ' Out of Stock'; ?>
                         </p>
                         <?php if($row['stock_quantity'] > 0): ?>
                             <a href="cart.php?add=<?php echo $row['product_id']; ?>" 
                                style="display: inline-block; margin-top: 10px; padding: 10px 30px; background: #000; color: white; text-decoration: none; border-radius: 30px;">
-                               🛒 Add to Cart
+                                Add to Cart
                             </a>
                         <?php endif; ?>
                     </div>
