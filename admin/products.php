@@ -54,7 +54,8 @@ if($role == 'admin' && isset($_GET['edit'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Products - Wan Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>Products - Wan Shoes</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/script.js"></script>
 </head>

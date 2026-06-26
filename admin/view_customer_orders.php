@@ -24,7 +24,8 @@ $orders = mysqli_query($conn, "SELECT * FROM orders WHERE customer_id = $custome
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Orders - Wan Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>Customer Orders - Wan Shoes</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>

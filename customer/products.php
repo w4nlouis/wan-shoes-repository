@@ -20,6 +20,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Products - Wan Shoes</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>

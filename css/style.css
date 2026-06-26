@@ -63,7 +63,7 @@ input, select {
     margin: 10px 0;
     border: 1.5px solid #e8e8e8;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 16px;
     transition: all 0.3s ease;
     background: #fafafa;
     font-family: inherit;
@@ -288,18 +288,6 @@ td a:hover {
     font-weight: 500;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    body { padding: 15px; }
-    .dashboard { padding: 20px; }
-    .stats-grid { grid-template-columns: 1fr; gap: 15px; }
-    .menu-grid { grid-template-columns: 1fr; }
-    table, th, td { font-size: 11px; padding: 8px 10px; }
-    .dashboard h1 { font-size: 24px; }
-    .stat-card .value { font-size: 28px; }
-    .container { padding: 30px 25px; }
-    .container h2 { font-size: 24px; }
-}
 /* Scrollable tables */
 .table-container {
     max-height: 450px;
@@ -318,6 +306,7 @@ td a:hover {
     background: #f8f8f8;
     z-index: 10;
 }
+
 /* Password toggle container */
 .password-wrapper {
     position: relative;
@@ -341,4 +330,83 @@ td a:hover {
     border: none;
     padding: 0;
     width: auto;
+}
+
+/* ========================================
+   WEEK 8: RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+/* Table scroll on mobile */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 20px 0;
+}
+
+.table-responsive table {
+    min-width: 600px;
+    width: 100%;
+}
+
+/* Better mobile stats */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px;
+    }
+    .stat-card {
+        padding: 15px 10px;
+    }
+    .stat-card .value {
+        font-size: 20px;
+    }
+    .dashboard h1 {
+        font-size: 22px;
+    }
+    .menu-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .container {
+        padding: 20px;
+    }
+    .dashboard {
+        padding: 15px;
+    }
+    table, th, td {
+        font-size: 11px;
+        padding: 8px 10px;
+    }
+}
+
+/* Tablet improvements */
+@media (min-width: 481px) and (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop improvements */
+@media (min-width: 769px) {
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .menu-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Existing responsive (keep as is) */
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    .dashboard { padding: 20px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 15px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    table, th, td { font-size: 11px; padding: 8px 10px; }
+    .dashboard h1 { font-size: 24px; }
+    .stat-card .value { font-size: 28px; }
+    .container { padding: 30px 25px; }
+    .container h2 { font-size: 24px; }
 }
